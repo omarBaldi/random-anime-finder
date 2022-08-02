@@ -1,0 +1,13 @@
+.heroContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  gap: 25px;
+  padding: 0 10px;
+}
+
+.heroImgContainer img {
+  height: 20rem;
+  width: auto;
+}

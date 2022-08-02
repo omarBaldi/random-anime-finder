@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useAnime } from "./context/animeContext";
+import "./App.css";
+import { Routes, Route, Link } from "react-router-dom";
+import AnimeDetails from "./pages/AnimeDetails";
+import Navbar from "./components/Navbar/Navbar";
+
+//pages
+import Home from "./pages/Home";
+import RandomAnime from "./pages/RandomAnime";
+import AboutMe from "./pages/AboutMe";
 
 function App() {
+  const { animeList, fetchData } = useAnime();
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/randomanime" element={<RandomAnime />} />
+        <Route path="/aboutme" element={<AboutMe />} />
+        <Route path="/animedetails/:id" element={<AnimeDetails />} />
+      </Routes>
     </div>
   );
 }
