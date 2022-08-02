@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAnime } from "./context/animeContext";
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AnimeDetails from "./pages/AnimeDetails";
 import Navbar from "./components/Navbar/Navbar";
 
@@ -11,10 +11,10 @@ import RandomAnime from "./pages/RandomAnime";
 import AboutMe from "./pages/AboutMe";
 
 function App() {
-  const { animeList, fetchData } = useAnime();
+  const { fetchData } = useAnime();
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   return (
     <div className="container">
       <Navbar />

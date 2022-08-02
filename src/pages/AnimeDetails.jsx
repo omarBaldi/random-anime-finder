@@ -14,17 +14,19 @@ function AnimeDetails() {
   useEffect(() => {
     if (animeList) {
       animeList.map((anime) => {
-        if (anime.mal_id == id) {
+        if (anime.mal_id === Number(id)) {
           setAnimeDetail(anime);
         }
       });
     }
-  }, []);
+  });
 
   return (
     <div className="detailContainer">
       <div className="detailPage">
-        <div className="detailLeft"><img src={animeDetail.images.jpg.image_url} alt={animeDetail.title} /></div>
+        <div className="detailLeft">
+          <img src={animeDetail.images.jpg.image_url} alt={animeDetail.title} />
+        </div>
         <div className="detailRight">{animeDetail.title}</div>
       </div>
     </div>

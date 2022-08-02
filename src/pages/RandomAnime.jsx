@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Cards from "../components/Cards/Cards";
 import { useAnime } from "../context/animeContext";
 import "../components/Cards/Cards.css";
