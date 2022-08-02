@@ -17,6 +17,7 @@ function AnimeDetails() {
         if (anime.mal_id === Number(id)) {
           setAnimeDetail(anime);
         }
+        return true;
       });
     }
   });
