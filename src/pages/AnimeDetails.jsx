@@ -1,35 +1,37 @@
-import "./details.css";
-import { useAnime } from "../context/animeContext";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { useCurrentAnime } from '../hooks/useCurrentAnime';
+import './details.css';
 
 function AnimeDetails() {
-  const { animeList } = useAnime();
   const { id } = useParams();
-  const [animeDetail, setAnimeDetail] = useState({
-    mal_id: "",
-    title: "",
-    images: { jpg: { image_url: "" } },
-  });
-  useEffect(() => {
-    if (animeList) {
-      animeList.map((anime) => {
-        if (anime.mal_id === Number(id)) {
-          setAnimeDetail(anime);
-        }
-        return true;
-      });
-    }
-  });
+  const currentAnime = useCurrentAnime(+id);
+
+  if (typeof currentAnime === 'undefined') {
+    return <div>No anime was found for the following id {id}</div>;
+  }
+
+  const {
+    title,
+    background: description,
+    images: {
+      jpg: { image_url: defaultCoverImage },
+    },
+    trailer: { embed_url: youtubeEmbedUrl },
+  } = currentAnime;
 
   return (
-    <div className="detailContainer">
-      <div className="detailPage">
-        <div className="detailLeft">
-          <img src={animeDetail.images.jpg.image_url} alt={animeDetail.title} />
-        </div>
-        <div className="detailRight">{animeDetail.title}</div>
+    <div>
+      <h1>{title}</h1>
+      <div style={{ display: 'flex' }}>
+        <img src={defaultCoverImage} title={title} alt='' />
+        <p>{description}</p>
       </div>
+      <iframe
+        title={title}
+        width='100%'
+        height={800}
+        src={youtubeEmbedUrl}
+      ></iframe>
     </div>
   );
 }

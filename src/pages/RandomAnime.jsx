@@ -1,6 +1,6 @@
-import Cards from '../components/Cards/Cards';
+import Card from '../components/Card/Card';
 import { useAnime } from '../context/animeContext';
-import '../components/Cards/Cards.css';
+import '../components/Card/Card.css';
 
 function RandomAnime() {
   const { animes } = useAnime();
@@ -8,7 +8,7 @@ function RandomAnime() {
   return (
     <div className='cardContainer'>
       {animes.map((anime) => (
-        <Cards
+        <Card
           key={anime.mal_id}
           id={anime.mal_id}
           image={anime.images.jpg.image_url}
