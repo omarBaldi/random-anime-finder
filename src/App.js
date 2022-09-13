@@ -8,7 +8,10 @@ import './App.css';
 /**
  *
  * @returns
+ * TODO: implement pagination functionality
+ * TODO: implement caching functionality to store results
  * TODO: implement absolute imports
+ * TODO: update README.md file to describe endpoint additional params (not clear now)
  */
 function App() {
   const { getAnimes } = useAnime();

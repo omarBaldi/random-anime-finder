@@ -3,6 +3,10 @@ import { getAnimesList } from '../services/getAnimesList';
 
 const AnimeContext = createContext({});
 
+/**
+ *
+ * TODO: replace nested useState with useReducer hook
+ */
 const AnimeProvider = ({ children }) => {
   const [apiState, setApiState] = useState({
     loading: true,
