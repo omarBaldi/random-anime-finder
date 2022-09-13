@@ -1,6 +1,5 @@
-import Card from '../../components/Card/Card';
 import { useAnime } from '../../context/animeContext';
-import '../components/Card/Card.css';
+import Card from '../../components/Card/Card';
 
 const AnimesPage = () => {
   const { animes } = useAnime();
