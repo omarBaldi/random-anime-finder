@@ -1,8 +1,8 @@
-import Card from '../components/Card/Card';
-import { useAnime } from '../context/animeContext';
+import Card from '../../components/Card/Card';
+import { useAnime } from '../../context/animeContext';
 import '../components/Card/Card.css';
 
-function RandomAnime() {
+const AnimesPage = () => {
   const { animes } = useAnime();
 
   return (
@@ -17,5 +17,5 @@ function RandomAnime() {
       ))}
     </div>
   );
-}
-export default RandomAnime;
+};
+export default AnimesPage;

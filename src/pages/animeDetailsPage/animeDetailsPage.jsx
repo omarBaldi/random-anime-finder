@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useCurrentAnime } from '../hooks/useCurrentAnime';
+import { useCurrentAnime } from '../../hooks/useCurrentAnime';
 import './details.css';
 
-function AnimeDetails() {
+const AnimeDetailsPage = () => {
   const { id } = useParams();
   const currentAnime = useCurrentAnime(+id);
 
@@ -34,5 +34,5 @@ function AnimeDetails() {
       ></iframe>
     </div>
   );
-}
-export default AnimeDetails;
+};
+export default AnimeDetailsPage;

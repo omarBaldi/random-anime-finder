@@ -1,18 +1,16 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAnime } from './context/animeContext';
 import { Routes, Route } from 'react-router-dom';
-import AnimeDetails from './pages/AnimeDetails';
+import { AboutPage, AnimeDetailsPage, AnimesPage } from './pages';
 import Navbar from './components/Navbar/Navbar';
-import RandomAnime from './pages/RandomAnime';
-import AboutMe from './pages/AboutMe';
 import './App.css';
 
 /**
  *
  * @returns
- * TODO: refactor logic for getting animes list from endpoint
  * TODO: possibly adding a not found route to redirect the user back to homepage
  * TODO: rename the pages with more descriptive names
+ * TODO: implement absolute imports
  */
 function App() {
   const { getAnimes } = useAnime();
@@ -26,10 +24,10 @@ function App() {
     <div className='container'>
       <Navbar />
       <Routes>
-        <Route path='/' element={<RandomAnime />} />
-        <Route path='/animes' element={<RandomAnime />} />
-        <Route path='/animes/:id' element={<AnimeDetails />} />
-        <Route path='/about' element={<AboutMe />} />
+        <Route path='/' element={<AnimesPage />} />
+        <Route path='/animes' element={<AnimesPage />} />
+        <Route path='/animes/:id' element={<AnimeDetailsPage />} />
+        <Route path='/about' element={<AboutPage />} />
       </Routes>
     </div>
   );
