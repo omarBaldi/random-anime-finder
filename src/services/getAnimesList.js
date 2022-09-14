@@ -1,9 +1,6 @@
 import axios from 'axios';
-import {
-  BASE_API_URL,
-  DEFAULT_ERROR_MESSAGE,
-  MINIMUM_PAGE_VALUE,
-} from '../constant';
+import { BASE_API_URL } from './config';
+import { DEFAULT_ERROR_MESSAGE, MINIMUM_PAGE_VALUE } from '../constant';
 
 /**
  *

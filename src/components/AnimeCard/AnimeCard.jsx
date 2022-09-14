@@ -1,11 +1,11 @@
 import './Card.css';
 import { Link } from 'react-router-dom';
 
-const AnimeCard = ({ image, title, id }) => {
+const AnimeCard = ({ images, title, mal_id: id }) => {
   return (
     <div className='card'>
       <div className='cardLeft'>
-        <img className='cardImage' src={image} alt={title} />
+        <img className='cardImage' src={images.jpg.image_url} alt={title} />
       </div>
       <div className='cardContent'>
         <p className='cardTitle'>{title}</p>
