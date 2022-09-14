@@ -1,7 +1,7 @@
 import './Card.css';
 import { Link } from 'react-router-dom';
 
-const Card = ({ image, title, id }) => {
+const AnimeCard = ({ image, title, id }) => {
   return (
     <div className='card'>
       <div className='cardLeft'>
@@ -18,4 +18,4 @@ const Card = ({ image, title, id }) => {
   );
 };
 
-export default Card;
+export default AnimeCard;

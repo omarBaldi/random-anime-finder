@@ -1,5 +1,5 @@
 import { useAnime } from '../../context/animeContext';
-import Card from '../../components/Card/Card';
+import { AnimeCard } from '../../components/AnimeCard';
 
 /**
  *
@@ -18,7 +18,7 @@ const AnimesPage = () => {
 
       <div className='cardContainer'>
         {animes.map((anime) => (
-          <Card
+          <AnimeCard
             key={anime.mal_id}
             id={anime.mal_id}
             image={anime.images.jpg.image_url}
