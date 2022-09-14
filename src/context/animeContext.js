@@ -5,8 +5,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { MINIMUM_PAGE_VALUE } from '../constant';
 import { getAnimesList } from '../services/getAnimesList';
+import { useCachedPageResults } from '../hooks/useCachedPageResults';
+import { MINIMUM_PAGE_VALUE } from '../constant';
 
 const AnimeContext = createContext({});
 
@@ -20,6 +21,10 @@ const AnimeProvider = ({ children }) => {
     animes: [],
     pageSelected: MINIMUM_PAGE_VALUE,
     errorMessage: '',
+  });
+
+  const { currentCachedResult, cacheResult } = useCachedPageResults({
+    page: apiState.pageSelected,
   });
 
   const updateApiState = (key, updatedValue) => {
@@ -44,15 +49,32 @@ const AnimeProvider = ({ children }) => {
     }));
   };
 
-  const getAnimes = useCallback(() => {
-    getAnimesList({ page: apiState.pageSelected })
-      .then(({ animesList }) => updateApiState('animes', animesList))
-      .catch((errorMessage) => updateApiState('errorMessage', errorMessage))
-      .finally(() => updateApiState('loading', false));
-  }, [apiState.pageSelected]);
+  const getAnimes = useCallback(async () => {
+    if (currentCachedResult) return currentCachedResult;
+
+    const { animesList } = await getAnimesList({
+      page: apiState.pageSelected,
+    });
+
+    return animesList;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCachedResult, apiState.pageSelected]);
 
   useEffect(() => {
-    getAnimes();
+    getAnimes()
+      .then((animesList) => {
+        updateApiState('animes', animesList);
+        cacheResult(animesList);
+      })
+      .catch((errorMessage) => updateApiState('errorMessage', errorMessage))
+      .finally(() => updateApiState('loading', false));
+
+    return () => {
+      updateApiState('loading', true);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAnimes]);
 
   const contextValues = {
