@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AboutPage, AnimeDetailsPage, AnimesPage, NotFoundPage } from './pages';
+import routes from './routes';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
 
@@ -17,11 +17,9 @@ function App() {
     <div className='container'>
       <Navbar />
       <Routes>
-        <Route path='/' element={<AnimesPage />} />
-        <Route path='/animes' element={<AnimesPage />} />
-        <Route path='/animes/:id' element={<AnimeDetailsPage />} />
-        <Route path='/about' element={<AboutPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+        {routes.map(({ path, component: ComponentToRender }, index) => (
+          <Route key={index} path={path} element={<ComponentToRender />} />
+        ))}
       </Routes>
     </div>
   );
