@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { MINIMUM_PAGE_VALUE } from '../constant';
 import { getAnimesList } from '../services/getAnimesList';
 
 const AnimeContext = createContext({});
@@ -11,6 +18,7 @@ const AnimeProvider = ({ children }) => {
   const [apiState, setApiState] = useState({
     loading: true,
     animes: [],
+    pageSelected: MINIMUM_PAGE_VALUE,
     errorMessage: '',
   });
 
@@ -18,16 +26,40 @@ const AnimeProvider = ({ children }) => {
     setApiState((prevState) => ({ ...prevState, [key]: updatedValue }));
   };
 
+  const goToNextPage = () => {
+    setApiState((prevState) => ({
+      ...prevState,
+      pageSelected: prevState.pageSelected + 1,
+    }));
+  };
+
+  /**
+   * Whenever the page value needs to be decreased, I need to make
+   * sure that it will never go below the minimum page value (1)
+   */
+  const goToPreviousPage = () => {
+    setApiState((prevState) => ({
+      ...prevState,
+      pageSelected: Math.max(MINIMUM_PAGE_VALUE, prevState.pageSelected - 1),
+    }));
+  };
+
   const getAnimes = useCallback(() => {
-    getAnimesList()
+    getAnimesList({ page: apiState.pageSelected })
       .then(({ animesList }) => updateApiState('animes', animesList))
       .catch((errorMessage) => updateApiState('errorMessage', errorMessage))
       .finally(() => updateApiState('loading', false));
-  }, []);
+  }, [apiState.pageSelected]);
+
+  useEffect(() => {
+    getAnimes();
+  }, [getAnimes]);
 
   const contextValues = {
     ...apiState,
     getAnimes,
+    goToNextPage,
+    goToPreviousPage,
   };
 
   return (
